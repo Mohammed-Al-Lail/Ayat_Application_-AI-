@@ -65,7 +65,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   }
   
   void _playAya() async {
-    String url = 'assets/audio/aya1.mp3'; // Replace with actual URLs from json
+    String url = "assets/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3"; // Replace with actual URLs from json
     await _audioPlayer.play(AssetSource(url));
   }
 
@@ -77,39 +77,86 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+
+      backgroundColor: Colors.amber[100] ,
+
       body: Container(
+
+        margin: EdgeInsets.all(50),
+
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.secondaryContainer,
-            ],
+
+          border: Border.all(
+            color: Colors.black,
+            width: 8,
           ),
+
+          borderRadius:BorderRadius.only(
+            topRight: Radius.circular(30),
+            bottomLeft: Radius.circular(30)
+          ) ,
+
+          color: Colors.amber[600]
+          // gradient: LinearGradient(
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          //   colors: [
+          //     Theme.of(context).colorScheme.primaryContainer,
+          //     Theme.of(context).colorScheme.secondaryContainer,
+          //   ],
+          // ),
         ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AyaWidget(
-                  ayaText: _ayaText, 
-                  ayaMeaning: _ayaMeaning, 
-                  showMeaning: _showMeaning, 
-                  playAya: _playAya, 
-                  toggleMeaning: _toggleMeaning
-                ),
-                const SizedBox(height: 20),
-                TimerWidget(
-                  initialDuration: _calculateRemainingTime(),
-                  onTimerEnd: _loadNewAya,
-                ),
-                
-              ],
+
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+          
+                children: [
+          
+                  Text(
+                    "آيَاتٌ مُحْكَمَاتٌ",
+                    style: TextStyle(
+                      color: Colors.amber[100],
+                      fontSize: 36,
+                      fontWeight: FontWeight.w900
+                    ),
+                  ),
+          
+                  const SizedBox(height: 60,),
+          
+                  AyaWidget(
+                    ayaText: _ayaText, 
+                    ayaMeaning: _ayaMeaning, 
+                    showMeaning: _showMeaning, 
+                    playAya: _playAya, 
+                    toggleMeaning: _toggleMeaning
+                  ),
+                  const SizedBox(height: 70),
+          
+                  Text(
+                    "Aya Will be Updated After:",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.amber[100]
+                    ),
+                  ),
+          
+                  const SizedBox(height: 20,),
+          
+                  TimerWidget(
+                    initialDuration: _calculateRemainingTime(),
+                    onTimerEnd: _loadNewAya,
+                  ),
+                  
+                ],
+              ),
             ),
           ),
         ),

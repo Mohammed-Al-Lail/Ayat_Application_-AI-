@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Quranic Aya',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        useMaterial3: true,
-      ),
-      
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+      //   useMaterial3: true,
+      // ),
+      debugShowCheckedModeBanner: false,
       home: const QuranAyaPage(),
     );
 

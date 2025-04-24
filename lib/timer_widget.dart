@@ -49,7 +49,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 100,
       height: 100,
       child: Stack(
@@ -58,11 +58,11 @@ class _TimerWidgetState extends State<TimerWidget> {
           CircularProgressIndicator(
             value: _remainingTime.inSeconds / widget.initialDuration.inSeconds,
             strokeWidth: 8,
-            color: Colors.red,
+            color: Colors.amber[200],
           ),
           Center(
             child: Text(
-              '${_remainingTime.inSeconds}',
+              '${_remainingTime.inSeconds} s',
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
