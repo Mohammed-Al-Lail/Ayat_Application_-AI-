@@ -46,12 +46,13 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
     });
   }
 
-  void _loadNewAya() {
+  void _loadNewAya() async {
     final now = DateTime.now();
     final ayaIndex = now.second % _ayas.length;
+    _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
     
     setState(() {
-      _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
+       
 
       _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
        _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
