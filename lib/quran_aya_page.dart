@@ -55,7 +55,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   }
 
     Duration _calculateRemainingTime() {
-        return const Duration(seconds: 15);
+        return const Duration(seconds: 10);
   }
   void _startTimer() {
     const duration = Duration(seconds: 10);
@@ -80,14 +80,14 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
     return Scaffold(
 
-      backgroundColor: Colors.amber[100] ,
+     // backgroundColor: Colors.amber[100] ,
       
 
       body: Stack(
 
         children: [
 
-        // this container will hold the img background
+        // this container will hold the outer img background
           Container(
 
             decoration: BoxDecoration(
@@ -115,7 +115,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
               bottomLeft: Radius.circular(30)
             ) ,
 
-            image: DecorationImage(
+            image: DecorationImage( // this container will hold the inner img background
               image: AssetImage("assets/background2.jpg"),
               fit: BoxFit.cover
               ),
@@ -131,55 +131,61 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
             // ),
           ),
         
-          child: SingleChildScrollView(
+          child: SingleChildScrollView( // this to enable the vertical scrolling
             scrollDirection: Axis.vertical,
             
+            
             child: Center(
+
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-            
-                  children: [
-            
-                    Text(
-                      "آيَاتٌ مُحْكَمَاتٌ",
-                      style: TextStyle(
-                        color: Colors.white.withValues(
-                          alpha: 0.6
+
+                child: SingleChildScrollView( // this to enable the horizontal scrolling
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                              
+                    children: [
+                              
+                      Text(
+                        "آيَاتٌ مُحْكَمَاتٌ",
+                        style: TextStyle(
+                          color: Colors.white.withValues(
+                            alpha: 0.6
+                          ),
+                          fontSize: 46,
+                          fontWeight: FontWeight.w900
                         ),
-                        fontSize: 46,
-                        fontWeight: FontWeight.w900
                       ),
-                    ),
-            
-                    const SizedBox(height: 60,),
-            
-                    AyaWidget(
-                      ayaText: _ayaText, 
-                      ayaMeaning: _ayaMeaning, 
-                      showMeaning: _showMeaning, 
-                      playAya: _playAya, 
-                      toggleMeaning: _toggleMeaning
-                    ),
-                    const SizedBox(height: 70),
-            
-                    Text(
-                      "The Aya Will be Updated After:",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white
+                              
+                      const SizedBox(height: 60,),
+                              
+                      AyaWidget(
+                        ayaText: _ayaText, 
+                        ayaMeaning: _ayaMeaning, 
+                        showMeaning: _showMeaning, 
+                        playAya: _playAya, 
+                        toggleMeaning: _toggleMeaning
                       ),
-                    ),
-            
-                    const SizedBox(height: 20,),
-            
-                    TimerWidget(
-                      initialDuration: _calculateRemainingTime(),
-                      onTimerEnd: _loadNewAya,
-                    ),
-                    
-                  ],
+                      const SizedBox(height: 70),
+                              
+                      Text(
+                        "The Aya Will be Updated After:",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white
+                        ),
+                      ),
+                              
+                      const SizedBox(height: 20,),
+                              
+                      TimerWidget(
+                        initialDuration: _calculateRemainingTime(),
+                        onTimerEnd: _loadNewAya,
+                      ),
+                      
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -22,13 +22,14 @@ class AyaWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
+          width: 220,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white.withValues(alpha:0.8),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha:0.2),
                 spreadRadius: 2,
                 blurRadius: 5,
               ),
