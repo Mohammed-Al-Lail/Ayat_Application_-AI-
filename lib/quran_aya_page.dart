@@ -51,10 +51,10 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
     final ayaIndex = now.second % _ayas.length;
     
     setState(() {
-      _ayaIndex=ayaIndex;
+      _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
 
-      _ayaText = _ayas[ayaIndex]['text'] ?? "No Aya found";
-       _ayaMeaning = _ayas[ayaIndex]['meaning'] ?? "No meaning found";
+      _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
+       _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
        _showMeaning = false;
     });
   }
@@ -97,7 +97,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/background.jpg"),
+                image: AssetImage("assets/images/background.jpg"),
                 fit: BoxFit.cover
                 )
             ),
@@ -121,7 +121,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
             ) ,
 
             image: DecorationImage( // this container will hold the inner img background
-              image: AssetImage("assets/background2.jpg"),
+              image: AssetImage("assets/images/background2.jpg"),
               fit: BoxFit.cover
               ),
         
