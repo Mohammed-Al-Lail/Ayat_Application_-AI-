@@ -20,6 +20,8 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   Timer? _timer;
   List<Map<String, dynamic>> _ayas = [];
+
+  late int _ayaIndex;
     
     @override
   void initState() {
@@ -47,7 +49,10 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   void _loadNewAya() {
     final now = DateTime.now();
     final ayaIndex = now.second % _ayas.length;
+    
     setState(() {
+      _ayaIndex=ayaIndex;
+
       _ayaText = _ayas[ayaIndex]['text'] ?? "No Aya found";
        _ayaMeaning = _ayas[ayaIndex]['meaning'] ?? "No meaning found";
        _showMeaning = false;
@@ -65,10 +70,10 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   }
   
   void _playAya() async {
-    String url = "قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3"; // Replace with actual URLs from json
-    await _audioPlayer.play(AssetSource(url));
+   
+      String url = _ayas[_ayaIndex]['audio_url'];
+      await _audioPlayer.play(AssetSource(url));
   }
-
   void _toggleMeaning() {
     setState(() {
       _showMeaning = !_showMeaning;
