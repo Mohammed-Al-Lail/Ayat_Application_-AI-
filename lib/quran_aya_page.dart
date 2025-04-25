@@ -65,7 +65,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   }
   
   void _playAya() async {
-    String url = "assets/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3"; // Replace with actual URLs from json
+    String url = "قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3"; // Replace with actual URLs from json
     await _audioPlayer.play(AssetSource(url));
   }
 
