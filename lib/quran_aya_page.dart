@@ -19,7 +19,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   bool _showMeaning = false;
   final AudioPlayer _audioPlayer = AudioPlayer();
   Timer? _timer;
-    List<Map<String, dynamic>> _ayas = [];
+  List<Map<String, dynamic>> _ayas = [];
     
     @override
   void initState() {
@@ -55,7 +55,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   }
 
     Duration _calculateRemainingTime() {
-        return const Duration(seconds: 10);
+        return const Duration(seconds: 15);
   }
   void _startTimer() {
     const duration = Duration(seconds: 10);
@@ -81,85 +81,112 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
     return Scaffold(
 
       backgroundColor: Colors.amber[100] ,
+      
 
-      body: Container(
+      body: Stack(
 
-        margin: EdgeInsets.all(50),
+        children: [
 
-        decoration: BoxDecoration(
+        // this container will hold the img background
+          Container(
 
-          border: Border.all(
-            color: Colors.black,
-            width: 8,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/background.jpg"),
+                fit: BoxFit.cover
+                )
+            ),
           ),
 
-          borderRadius:BorderRadius.only(
-            topRight: Radius.circular(30),
-            bottomLeft: Radius.circular(30)
-          ) ,
+         Container(
+        
+          margin: EdgeInsets.all(50),
+          
+        
+          decoration: BoxDecoration(
+        
+            border: Border.all(
+              color: Colors.black54,
+              width: 8,
+            ),
+        
+            borderRadius:BorderRadius.only(
+              topRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30)
+            ) ,
 
-          color: Colors.amber[600]
-          // gradient: LinearGradient(
-          //   begin: Alignment.topLeft,
-          //   end: Alignment.bottomRight,
-          //   colors: [
-          //     Theme.of(context).colorScheme.primaryContainer,
-          //     Theme.of(context).colorScheme.secondaryContainer,
-          //   ],
-          // ),
-        ),
-
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-          
-                children: [
-          
-                  Text(
-                    "آيَاتٌ مُحْكَمَاتٌ",
-                    style: TextStyle(
-                      color: Colors.amber[100],
-                      fontSize: 36,
-                      fontWeight: FontWeight.w900
+            image: DecorationImage(
+              image: AssetImage("assets/background2.jpg"),
+              fit: BoxFit.cover
+              ),
+        
+            color: Colors.transparent
+            // gradient: LinearGradient(
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            //   colors: [
+            //     Theme.of(context).colorScheme.primaryContainer,
+            //     Theme.of(context).colorScheme.secondaryContainer,
+            //   ],
+            // ),
+          ),
+        
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+            
+                  children: [
+            
+                    Text(
+                      "آيَاتٌ مُحْكَمَاتٌ",
+                      style: TextStyle(
+                        color: Colors.white.withValues(
+                          alpha: 0.6
+                        ),
+                        fontSize: 46,
+                        fontWeight: FontWeight.w900
+                      ),
                     ),
-                  ),
-          
-                  const SizedBox(height: 60,),
-          
-                  AyaWidget(
-                    ayaText: _ayaText, 
-                    ayaMeaning: _ayaMeaning, 
-                    showMeaning: _showMeaning, 
-                    playAya: _playAya, 
-                    toggleMeaning: _toggleMeaning
-                  ),
-                  const SizedBox(height: 70),
-          
-                  Text(
-                    "Aya Will be Updated After:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.amber[100]
+            
+                    const SizedBox(height: 60,),
+            
+                    AyaWidget(
+                      ayaText: _ayaText, 
+                      ayaMeaning: _ayaMeaning, 
+                      showMeaning: _showMeaning, 
+                      playAya: _playAya, 
+                      toggleMeaning: _toggleMeaning
                     ),
-                  ),
-          
-                  const SizedBox(height: 20,),
-          
-                  TimerWidget(
-                    initialDuration: _calculateRemainingTime(),
-                    onTimerEnd: _loadNewAya,
-                  ),
-                  
-                ],
+                    const SizedBox(height: 70),
+            
+                    Text(
+                      "The Aya Will be Updated After:",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white
+                      ),
+                    ),
+            
+                    const SizedBox(height: 20,),
+            
+                    TimerWidget(
+                      initialDuration: _calculateRemainingTime(),
+                      onTimerEnd: _loadNewAya,
+                    ),
+                    
+                  ],
+                ),
               ),
             ),
           ),
         ),
+
+        ],
       ),
     );
   }

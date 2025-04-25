@@ -58,15 +58,15 @@ class _TimerWidgetState extends State<TimerWidget> {
           CircularProgressIndicator(
             value: _remainingTime.inSeconds / widget.initialDuration.inSeconds,
             strokeWidth: 8,
-            color: Colors.amber[200],
+            color: _remainingTime.inSeconds>5 ? Colors.white : Colors.red,
           ),
           Center(
             child: Text(
               '${_remainingTime.inSeconds} s',
               style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
               ),
             ),
           ),
