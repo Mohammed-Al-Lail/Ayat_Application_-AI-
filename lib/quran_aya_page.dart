@@ -49,10 +49,10 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   void _loadNewAya() async {
     final now = DateTime.now();
     final ayaIndex = now.second % _ayas.length;
-    _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
+   
     
     setState(() {
-       
+        _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
 
       _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
        _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
@@ -86,22 +86,14 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
     return Scaffold(
 
-     // backgroundColor: Colors.amber[100] ,
-      
-
       body: Stack(
+
 
         children: [
 
-        // this container will hold the outer img background
+        // this container will hold the outer color background
           Container(
-
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover
-                )
-            ),
+            color: Colors.blue[300],
           ),
 
          Container(
@@ -113,7 +105,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
         
             border: Border.all(
               color: Colors.black54,
-              width: 8,
+              width: 12,
             ),
         
             borderRadius:BorderRadius.only(
@@ -121,23 +113,13 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
               bottomLeft: Radius.circular(30)
             ) ,
 
-            image: DecorationImage( // this container will hold the inner img background
-              image: AssetImage("assets/images/background2.jpg"),
-              fit: BoxFit.cover
-              ),
+            
         
-            color: Colors.transparent
-            // gradient: LinearGradient(
-            //   begin: Alignment.topLeft,
-            //   end: Alignment.bottomRight,
-            //   colors: [
-            //     Theme.of(context).colorScheme.primaryContainer,
-            //     Theme.of(context).colorScheme.secondaryContainer,
-            //   ],
-            // ),
+            color: Colors.blue[200]
+           
           ),
         
-          child: SingleChildScrollView( // this to enable the vertical scrolling
+          child: SingleChildScrollView( // this to Enable the vertical scrolling
             scrollDirection: Axis.vertical,
             
             
@@ -178,8 +160,9 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
                       Text(
                         "The Aya Will be Updated After:",
                         style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white70
                         ),
                       ),
                               
