@@ -109,7 +109,52 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
       backgroundColor: Colors.blue[300],
 
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+
+        title: Center(
+          child: Text(
+            "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ",
+            style: TextStyle(
+              color: Colors.white.withValues(
+                alpha: 0.7
+              ),
+              fontSize: 26,
+              fontWeight: FontWeight.w900
+            ), 
+
+          ),
+        ),
+
+        leading: Builder(
+          builder: (ctx) {
+
+            return Padding(
+              padding: const EdgeInsets.all(5),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  width: 50, 
+                  height: 50, 
+                  color: Colors.blue[200],
+                  child: IconButton(
+                    onPressed: (){
+                      Scaffold.of(ctx).openDrawer();
+                    },
+                     icon: Icon(
+                      Icons.menu,
+                     )
+                     ),
+                ),
+              ),
+            );
+          }
+        ) ,
+      ),
+
+      
       drawer: Drawer(
+
         backgroundColor: Colors.grey[300],
 
         child: ListView(
@@ -118,132 +163,178 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
             SizedBox(height: 50,),
 
+            Center(
+             
+              child: Text(
+                "آيَاتٌ مُحْكَمَاتٌ",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold
+              
+                ),
+              
+              ),
+            ),
+            SizedBox(height: 30,),
+
+            Divider(
+              color: Colors.grey[800],
+              thickness: 2,
+            ),
+            SizedBox(height: 50,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "يمكنكم التواصل معنا من خلال البريد الالكتروني",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 28,
+              
+                ),
+              
+              ),
+            ),
+            SizedBox(height: 20,),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "You can communicate with us through the following Email",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 22,
+              
+                ),
+              
+              ),
+            ),
+           
+            SizedBox(height: 20,),
+            
+            Icon(
+              Icons.arrow_downward_sharp,
+              size: 48,
+              color: Colors.grey[800],
+            ),
+            SizedBox(height: 30,),
+
             DrawerlistTail(
               title: "Send Email",
               icon: Icons.message_outlined,
               onTap: _sendEmail,
               ),
+             // SizedBox(height: 20,),
 
-            DrawerlistTail(
-              title: "Contact Us",
-              icon: Icons.phone,
-              ),
+            
 
           ],
         ),
       ),
 
-      body: Column(
-
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
         
-        children: [
-
+          
+          children: [
         
-          Builder(
-            builder: (ctx) {
-              return ElevatedButton(
-                onPressed: (){
-                  Scaffold.of(ctx).openDrawer();
-                },
-                 child: Icon(Icons.abc)
-                 );
-            }
-          ),
-
-         Center(
-           child: Container(
-                   
-            margin: EdgeInsets.all(10),
-            
-            height: MediaQuery.of(context).size.height*0.9,
-            width:  MediaQuery.of(context).size.width*0.9,
-            
-            
-                   
-            decoration: BoxDecoration(
-                   
-              border: Border.all(
-                color: Colors.black54,
-                width: 12,
-              ),
-                   
-              borderRadius:BorderRadius.only(
-                topRight: Radius.circular(30),
-                bottomLeft: Radius.circular(30)
-              ) ,
-           
+        
+           Center(
+             child: Container(
+                     
+              margin: EdgeInsets.all(10),
               
-                   
-              color: Colors.blue[200]
+              height: MediaQuery.of(context).size.height*0.9,
+              width:  MediaQuery.of(context).size.width*0.9,
+              
+              
+                     
+              decoration: BoxDecoration(
+                     
+                border: Border.all(
+                  color: Colors.black54,
+                  width: 12,
+                ),
+                     
+                borderRadius:BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(30)
+                ) ,
              
-            ),
-                   
-            child: SingleChildScrollView( // this to Enable the vertical scrolling
-              scrollDirection: Axis.vertical,
-              
-              
-              child: Center(
-           
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-           
-                  child: SingleChildScrollView( // this to enable the horizontal scrolling
-                    scrollDirection: Axis.horizontal,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                                
-                      children: [
-                                
-                        Text(
-                          "آيَاتٌ مُحْكَمَاتٌ",
-                          style: TextStyle(
-                            color: Colors.white.withValues(
-                              alpha: 0.6
+                
+                     
+                color: Colors.blue[200]
+               
+              ),
+                     
+              child: SingleChildScrollView( // this to Enable the vertical scrolling
+                scrollDirection: Axis.vertical,
+                
+                
+                child: Center(
+             
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+             
+                    child: SingleChildScrollView( // this to enable the horizontal scrolling
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                                  
+                        children: [
+                                  
+                          Text(
+                            "آيَاتٌ مُحْكَمَاتٌ",
+                            style: TextStyle(
+                              color: Colors.white.withValues(
+                                alpha: 0.6
+                              ),
+                              fontSize: 46,
+                              fontWeight: FontWeight.w900
                             ),
-                            fontSize: 46,
-                            fontWeight: FontWeight.w900
                           ),
-                        ),
-                                
-                        const SizedBox(height: 60,),
-                                
-                        AyaWidget(
-                          ayaText: _ayaText, 
-                          ayaMeaning: _ayaMeaning, 
-                          showMeaning: _showMeaning, 
-                          playAya: _playAya,
-                          surahName: _currentSurahName,
-                          ayaNumber: _currentAyaNumber,
-                          toggleMeaning: _toggleMeaning
-                        ),
-                        const SizedBox(height: 70),
-                                
-                        Text(
-                          "The Aya Will be Updated After:",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white70
+                                  
+                          const SizedBox(height: 60,),
+                                  
+                          AyaWidget(
+                            ayaText: _ayaText, 
+                            ayaMeaning: _ayaMeaning, 
+                            showMeaning: _showMeaning, 
+                            playAya: _playAya,
+                            surahName: _currentSurahName,
+                            ayaNumber: _currentAyaNumber,
+                            toggleMeaning: _toggleMeaning
                           ),
-                        ),
-                                
-                        const SizedBox(height: 20,),
-                                
-                        TimerWidget(
-                          initialDuration: _calculateRemainingTime(),
-                          onTimerEnd: _loadNewAya,
-                        ),
-                        
-                      ],
+                          const SizedBox(height: 70),
+                                  
+                          Text(
+                            "The Aya Will be Updated After:",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white70
+                            ),
+                          ),
+                                  
+                          const SizedBox(height: 20,),
+                                  
+                          TimerWidget(
+                            initialDuration: _calculateRemainingTime(),
+                            onTimerEnd: _loadNewAya,
+                          ),
+                          
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-                   ),
-         ),
-
-        ],
+                     ),
+           ),
+        
+          ],
+        ),
       ),
     );
   }
