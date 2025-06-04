@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/drawerListTail.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'aya_widget.dart';
 import 'timer_widget.dart';
 
@@ -85,6 +87,21 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
     });
   }
 
+
+  void _sendEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'alalmoh3404@gmail.com', // Replace with the recipient's email
+      //query: 'subject=Hello&body=How are you?', // Optional: Subject and body
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      throw 'Could not launch $emailUri';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -92,12 +109,46 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
       backgroundColor: Colors.blue[300],
 
+      drawer: Drawer(
+        backgroundColor: Colors.grey[300],
+
+        child: ListView(
+          
+          children: [
+
+            SizedBox(height: 50,),
+
+            DrawerlistTail(
+              title: "Send Email",
+              icon: Icons.message_outlined,
+              onTap: _sendEmail,
+              ),
+
+            DrawerlistTail(
+              title: "Contact Us",
+              icon: Icons.phone,
+              ),
+
+          ],
+        ),
+      ),
+
       body: Column(
 
-
+        
         children: [
 
         
+          Builder(
+            builder: (ctx) {
+              return ElevatedButton(
+                onPressed: (){
+                  Scaffold.of(ctx).openDrawer();
+                },
+                 child: Icon(Icons.abc)
+                 );
+            }
+          ),
 
          Center(
            child: Container(
