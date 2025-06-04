@@ -64,7 +64,8 @@ flutter:
   assets:
      - assets/
      - assets/images/
-     - assets/sounds/
+     - assets/sounds/Al-Fatiha/
+     - assets/sounds/Al-Ikhlas/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

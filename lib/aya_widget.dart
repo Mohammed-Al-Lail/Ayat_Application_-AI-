@@ -83,8 +83,10 @@ class AyaWidget extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: playAya,
               icon: const Icon(CupertinoIcons.volume_up),
+
               label: const Text("Listen"),
               style: ElevatedButton.styleFrom(
+                iconColor: Colors.white,
                 foregroundColor:
                     Theme.of(context).colorScheme.onPrimary,
                 backgroundColor:

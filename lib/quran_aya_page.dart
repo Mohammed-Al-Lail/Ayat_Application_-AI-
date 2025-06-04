@@ -90,102 +90,107 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
     return Scaffold(
 
-      body: Stack(
+      backgroundColor: Colors.blue[300],
+
+      body: Column(
 
 
         children: [
 
-        // this container will hold the outer color background
-          Container(
-            color: Colors.blue[300],
-          ),
+        
 
-         Container(
-        
-          margin: EdgeInsets.all(50),
-          
-        
-          decoration: BoxDecoration(
-        
-            border: Border.all(
-              color: Colors.black54,
-              width: 12,
-            ),
-        
-            borderRadius:BorderRadius.only(
-              topRight: Radius.circular(30),
-              bottomLeft: Radius.circular(30)
-            ) ,
-
+         Center(
+           child: Container(
+                   
+            margin: EdgeInsets.all(10),
             
-        
-            color: Colors.blue[200]
+            height: MediaQuery.of(context).size.height*0.9,
+            width:  MediaQuery.of(context).size.width*0.9,
+            
+            
+                   
+            decoration: BoxDecoration(
+                   
+              border: Border.all(
+                color: Colors.black54,
+                width: 12,
+              ),
+                   
+              borderRadius:BorderRadius.only(
+                topRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30)
+              ) ,
            
-          ),
-        
-          child: SingleChildScrollView( // this to Enable the vertical scrolling
-            scrollDirection: Axis.vertical,
-            
-            
-            child: Center(
-
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-
-                child: SingleChildScrollView( // this to enable the horizontal scrolling
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                              
-                    children: [
-                              
-                      Text(
-                        "آيَاتٌ مُحْكَمَاتٌ",
-                        style: TextStyle(
-                          color: Colors.white.withValues(
-                            alpha: 0.6
+              
+                   
+              color: Colors.blue[200]
+             
+            ),
+                   
+            child: SingleChildScrollView( // this to Enable the vertical scrolling
+              scrollDirection: Axis.vertical,
+              
+              
+              child: Center(
+           
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+           
+                  child: SingleChildScrollView( // this to enable the horizontal scrolling
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                                
+                      children: [
+                                
+                        Text(
+                          "آيَاتٌ مُحْكَمَاتٌ",
+                          style: TextStyle(
+                            color: Colors.white.withValues(
+                              alpha: 0.6
+                            ),
+                            fontSize: 46,
+                            fontWeight: FontWeight.w900
                           ),
-                          fontSize: 46,
-                          fontWeight: FontWeight.w900
                         ),
-                      ),
-                              
-                      const SizedBox(height: 60,),
-                              
-                      AyaWidget(
-                        ayaText: _ayaText, 
-                        ayaMeaning: _ayaMeaning, 
-                        showMeaning: _showMeaning, 
-                        playAya: _playAya,
-                        surahName: _currentSurahName,
-                        ayaNumber: _currentAyaNumber,
-                        toggleMeaning: _toggleMeaning
-                      ),
-                      const SizedBox(height: 70),
-                              
-                      Text(
-                        "The Aya Will be Updated After:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white70
+                                
+                        const SizedBox(height: 60,),
+                                
+                        AyaWidget(
+                          ayaText: _ayaText, 
+                          ayaMeaning: _ayaMeaning, 
+                          showMeaning: _showMeaning, 
+                          playAya: _playAya,
+                          surahName: _currentSurahName,
+                          ayaNumber: _currentAyaNumber,
+                          toggleMeaning: _toggleMeaning
                         ),
-                      ),
-                              
-                      const SizedBox(height: 20,),
-                              
-                      TimerWidget(
-                        initialDuration: _calculateRemainingTime(),
-                        onTimerEnd: _loadNewAya,
-                      ),
-                      
-                    ],
+                        const SizedBox(height: 70),
+                                
+                        Text(
+                          "The Aya Will be Updated After:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white70
+                          ),
+                        ),
+                                
+                        const SizedBox(height: 20,),
+                                
+                        TimerWidget(
+                          initialDuration: _calculateRemainingTime(),
+                          onTimerEnd: _loadNewAya,
+                        ),
+                        
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ),
+                   ),
+         ),
 
         ],
       ),
