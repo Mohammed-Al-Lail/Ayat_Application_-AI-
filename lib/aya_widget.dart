@@ -109,6 +109,7 @@ class AyaWidget extends StatelessWidget {
                   ? "Hide Meaning"
                   : "Show Meaning"),
               style: ElevatedButton.styleFrom(
+                iconColor: Colors.white,
                 foregroundColor:
                     Theme.of(context).colorScheme.onSecondary,
                 backgroundColor:
