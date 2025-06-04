@@ -22,6 +22,8 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   List<Map<String, dynamic>> _ayas = [];
 
   late int _ayaIndex;
+  String _currentSurahName = "";
+  int _currentAyaNumber = 0;
     
     @override
   void initState() {
@@ -52,11 +54,13 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
    
     
     setState(() {
-        _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
+      _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
 
       _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
-       _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
-       _showMeaning = false;
+      _currentSurahName = _ayas[_ayaIndex]['surah'] ?? "";
+      _currentAyaNumber = _ayas[_ayaIndex]['aya_number'] ?? 0;
+      _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
+      _showMeaning = false;
     });
   }
 
@@ -152,7 +156,9 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
                         ayaText: _ayaText, 
                         ayaMeaning: _ayaMeaning, 
                         showMeaning: _showMeaning, 
-                        playAya: _playAya, 
+                        playAya: _playAya,
+                        surahName: _currentSurahName,
+                        ayaNumber: _currentAyaNumber,
                         toggleMeaning: _toggleMeaning
                       ),
                       const SizedBox(height: 70),

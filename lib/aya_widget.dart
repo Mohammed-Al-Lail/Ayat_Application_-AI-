@@ -5,6 +5,8 @@ class AyaWidget extends StatelessWidget {
   final String ayaText;
   final String ayaMeaning;
   final bool showMeaning;
+  final String surahName;
+  final int ayaNumber;
   final VoidCallback playAya;
   final VoidCallback toggleMeaning;
 
@@ -13,6 +15,8 @@ class AyaWidget extends StatelessWidget {
     required this.ayaText,
     required this.ayaMeaning,
     required this.showMeaning,
+    required this.surahName,
+    required this.ayaNumber,
     required this.playAya,
     required this.toggleMeaning,
   });
@@ -36,7 +40,9 @@ class AyaWidget extends StatelessWidget {
             ],
           ),
           child: Column(
+
             children: [
+              
               Text(
                 ayaText,
                 textAlign: TextAlign.center,
@@ -56,6 +62,17 @@ class AyaWidget extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
+
+                Text(
+                '$surahName - (${ayaNumber.toString()})',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey, // Or any other color
+                  fontFamily: 'Amiri',
+                ),
+              ),
+              const SizedBox(height: 5),
             ],
           ),
         ),

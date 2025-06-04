@@ -3,57 +3,93 @@
     {
       "audio_url": "sounds/قل اعوذ برب الفلق.mp3",
       "text": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
-      "meaning": "In the name of Allah, the Entirely Merciful, the Especially Merciful."
+      "meaning": "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+      "surah": "الفاتحة",
+      "aya_number": 1
     },
     {
       "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
       "text": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
-      "meaning": "All praise is due to Allah, Lord of the worlds."
+      "meaning": "All praise is due to Allah, Lord of the worlds.",
+      "surah": "الفاتحة",
+      "aya_number": 2
     },
     {
-      "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
+      "audio_url": "sounds/قل هو الله احد بصوت ماher المعيقلي [JnIde_WTfJI].mp3",
       "text": "الرَّحْمَنِ الرَّحِيمِ",
-      "meaning": "The Entirely Merciful, the Especially Merciful."
+      "meaning": "The Entirely Merciful, the Especially Merciful.",
+      "surah": "الفاتحة",
+      "aya_number": 3
     },
     {
       "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
       "text": "مَالِكِ يَوْمِ الدِّينِ",
-      "meaning": "Sovereign of the Day of Recompense."
+      "meaning": "Sovereign of the Day of Recompense.",
+      "surah": "الفاتحة",
+      "aya_number": 4
     },
     {
-      "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
+      "audio_url": "sounds/ قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
       "text": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
-      "meaning": "It is You we worship and You we ask for help."
+      "meaning": "It is You we worship and You we ask for help.",
+      "surah": "الفاتحة",
+      "aya_number": 5
     },
     {
       "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
       "text": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
-      "meaning": "Guide us to the straight path."
+      "meaning": "Guide us to the straight path.",
+      "surah": "الفاتحة",
+      "aya_number": 6
     },
     {
       "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
       "text": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
-      "meaning": "The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray."
+      "meaning": "The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray.",
+      "surah": "الفاتحة",
+      "aya_number": 7
     },
     {
         "audio_url": "sounds/قل هو الله احد.mp3",
         "text": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
-        "meaning": "Say, \"He is Allah, [who is] One,"
+        "meaning": "Say, \"He is Allah, [who is] One,",
+        "surah": "الإخلاص",
+        "aya_number": 1
     },
     {
         "audio_url": "sounds/الله الصمد.mp3",
         "text": "ٱللَّهُ ٱلصَّمَدُ",
-        "meaning": "Allah, the Eternal Refuge."
+        "meaning": "Allah, the Eternal Refuge.",
+        "surah": "الإخلاص",
+        "aya_number": 2
     },
     {
         "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
         "text": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
-        "meaning": "He neither begets nor is born,"
+        "meaning": "He neither begets nor is born,",
+        "surah": "الإخلاص",
+        "aya_number": 3
     },
      {
         "audio_url": "sounds/قل هو الله احد بصوت ماهر المعيقلي [JnIde_WTfJI].mp3",
         "text": "وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ",
-        "meaning": "Nor is there to Him any equivalent.\""
+        "meaning": "Nor is there to Him any equivalent.\"",
+        "surah": "الإخلاص",
+        "aya_number": 4
+    },
+    {
+        "audio_url": "sounds/قل اعوذ برب الفلق.mp3",
+        "text": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+        "meaning": "Say, \"I seek refuge in the Lord of daybreak,\"",
+        "surah": "الفلق",
+        "aya_number": 1
+    },
+    {
+        "audio_url": "sounds/قل اعوذ برب الفلق.mp3",
+        "text": "مِن شَرِّ مَا خَلَقَ",
+        "meaning": "From the evil of that which He created,",
+        "surah": "الفلق",
+        "aya_number": 2
     }
   ]
 }
