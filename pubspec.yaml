@@ -69,6 +69,8 @@ flutter:
      - assets/sounds/Al-Fatiha/
      - assets/sounds/Al-Ikhlas/
      - assets/sounds/Al-Kawthar/
+     - assets/sounds/Al-Nas/
+     - assets/sounds/Al-Falaq/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
