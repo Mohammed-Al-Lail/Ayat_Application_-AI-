@@ -52,7 +52,7 @@
     {
         "audio_url": "sounds/Al-Ikhlas/الاخلاص(1).mp3",
         "text": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
-        "meaning": "Say, \"He is Allah, [who is] One,",
+        "meaning": "Say, He is Allah, [who is] One,",
         "surah": "الإخلاص",
         "aya_number": 1
     },
@@ -73,10 +73,30 @@
      {
         "audio_url": "sounds/Al-Ikhlas/الاخلاص(4).mp3",
         "text": "وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ",
-        "meaning": "Nor is there to Him any equivalent.\"",
+        "meaning": "Nor is there to Him any equivalent.",
         "surah": "الإخلاص",
         "aya_number": 4
+    },
+    {
+      "audio_url": "sounds/Al-Kawthar/الكوثر(1).mp3",
+      "text": "إِنَّآ أَعْطَيْنَـٰكَ ٱلْكَوْثَرَ",
+      "meaning": "Indeed, We have granted you, [O Muhammad], al-Kawthar.",
+      "surah": "الكوثر",
+      "aya_number": 1
+    },
+    {
+      "audio_url": "sounds/Al-Kawthar/الكوثر(2).mp3",
+      "text": "فَصَلِّ لِرَبِّكَ وَٱنْحَرْ",
+      "meaning": "So pray to your Lord and sacrifice [to Him alone].",
+      "surah": "الكوثر",
+      "aya_number": 2
+    },
+    {
+      "audio_url": "sounds/Al-Kawthar/الكوثر(3).mp3",
+      "text": "إِنَّ شَانِئَكَ هُوَ ٱلْأَبْتَرُ",
+      "meaning": "Indeed, your enemy is the one cut off.",
+      "surah": "الكوثر",
+      "aya_number": 3
     }
- 
   ]
 }
