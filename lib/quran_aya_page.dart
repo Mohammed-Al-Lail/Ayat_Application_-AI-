@@ -8,6 +8,9 @@ import 'package:myapp/drawerListTail.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'aya_widget.dart';
 import 'timer_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class QuranAyaPage extends StatefulWidget {
   const QuranAyaPage({super.key});
@@ -15,7 +18,7 @@ class QuranAyaPage extends StatefulWidget {
   State<QuranAyaPage> createState() => _QuranAyaPageState();
 }
 
-class _QuranAyaPageState extends State<QuranAyaPage> {
+class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver{
   String _ayaText = "";
   String _ayaMeaning = "";
   bool _showMeaning = false;
@@ -23,56 +26,126 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
   Timer? _timer;
   List<Map<String, dynamic>> _ayas = [];
 
-  late int _ayaIndex;
+  int _ayaIndex = 0; // Initialize _ayaIndex
   String _currentSurahName = "";
   int _currentAyaNumber = 0;
+  Duration _remainingTime = const Duration(hours: 12); // Initialize with the default duration
+
+
     
     @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this); // Add observer
     _loadAyas();
-    _startTimer();
+    _loadTimerState();
     
   }
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer
+    _saveTimerState();
     _timer?.cancel();
     _audioPlayer.dispose();
     super.dispose();
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _saveTimerState(); // Save when the app goes to the background
+    } else if (state == AppLifecycleState.resumed) {
+      _loadTimerState(); // Load when the app comes to the foreground
+    }
+  }
+
+  Future<void> _saveTimerState() async {
+    final prefs = await SharedPreferences.getInstance();
+    final timerEndTime = DateTime.now().add(_remainingTime);
+    await prefs.setInt('timerEndTime', timerEndTime.millisecondsSinceEpoch);
+    await prefs.setInt('currentAyaIndex', _ayaIndex); // Save the current aya index
+  }
+
+  Future<void> _loadTimerState() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedEndTimeMillis = prefs.getInt('timerEndTime');
+    final savedAyaIndex = prefs.getInt('currentAyaIndex'); // Load the saved aya index
+
+    if (savedEndTimeMillis != null && savedAyaIndex != null) {
+      final savedEndTime = DateTime.fromMillisecondsSinceEpoch(savedEndTimeMillis);
+      final remaining = savedEndTime.difference(DateTime.now());
+
+      if (remaining.isNegative) {
+        // Timer has already ended
+        _remainingTime = Duration.zero;
+        _loadNewAya(); // Trigger the next aya
+      } else {
+        _remainingTime = remaining;
+        _ayaIndex = savedAyaIndex; // Use the saved aya index
+        _updateAyaDisplay(); // Update the displayed aya based on the loaded index
+      }
+    } else {
+      // No saved state, start a new timer and load a new aya
+      _remainingTime = const Duration(hours: 12); // Or your initial duration
+      _loadNewAya(); // Load a new aya
+    }
+
+    _startTimer(); // Start the timer with the loaded or initial duration
+  }
+
+
 
   Future<void> _loadAyas() async {
     final String response = await rootBundle.loadString('assets/ayas.json');
     final data = await json.decode(response);
     setState(() {
       _ayas = List<Map<String, dynamic>>.from(data['ayas']);
-      _loadNewAya();
+      // Do not load initial aya here, it will be loaded in _loadTimerState
     });
   }
 
   void _loadNewAya() async {
-    final now = DateTime.now();
-    final ayaIndex = now.second % _ayas.length;
-   
-    
-    setState(() {
-      _ayaIndex = ayaIndex; // we will use the _ayaIndex instead of the orginal one -> (ayaIndex), so we can use _ayaIndex in different methods
+    if (_ayas.isEmpty) return; // Ensure ayas are loaded
 
-      _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
-      _currentSurahName = _ayas[_ayaIndex]['surah'] ?? "";
-      _currentAyaNumber = _ayas[_ayaIndex]['aya_number'] ?? 0;
-      _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
-      _showMeaning = false;
+    // Logic to select the next aya (example: move to the next aya sequentially)
+    _ayaIndex = (_ayaIndex + 1) % _ayas.length;
+
+    setState(() {
+      _updateAyaDisplay(); // Update the UI with the new aya
+      _remainingTime = const Duration(hours: 12); // Reset timer for the new aya
+      _saveTimerState(); // Save the new aya index and timer state
+      _startTimer(); // Start timer for the new aya
     });
   }
 
+  void _updateAyaDisplay() {
+    if (_ayas.isNotEmpty && _ayaIndex >= 0 && _ayaIndex < _ayas.length) {
+      setState(() {
+        _ayaText = _ayas[_ayaIndex]['text'] ?? "No Aya found";
+        _currentSurahName = _ayas[_ayaIndex]['surah'] ?? "";
+        _currentAyaNumber = _ayas[_ayaIndex]['aya_number'] ?? 0;
+        _ayaMeaning = _ayas[_ayaIndex]['meaning'] ?? "No meaning found";
+        _showMeaning = false;
+      });
+    }
+  }
+
+
     Duration _calculateRemainingTime() {
-        return const Duration(seconds: 10);
+        return _remainingTime;
   }
   void _startTimer() {
-    const duration = Duration(seconds: 10);
-    _timer = Timer.periodic(duration, (Timer timer) {
-      _loadNewAya();
+    _timer?.cancel(); // Cancel existing timer
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        if (_remainingTime.inSeconds > 0) {
+          _remainingTime = _remainingTime - const Duration(seconds: 1);
+        } else {
+          timer.cancel();
+          _loadNewAya(); // Load new aya when timer ends
+        }
+      });
     });
   }
   
@@ -90,7 +163,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
   void _sendEmail() async {
     final Uri emailUri = Uri(
-      scheme: 'mailto',
+      scheme: 'mailto:',
       path: 'alalmoh3404@gmail.com', // Replace with the recipient's email
       //query: 'subject=Hello&body=How are you?', // Optional: Subject and body
     );

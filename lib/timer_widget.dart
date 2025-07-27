@@ -47,26 +47,35 @@ class _TimerWidgetState extends State<TimerWidget> {
     });
   }
 
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String hours = twoDigits(duration.inHours);
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$hours:$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100,
-      height: 100,
+      width: 150,
+      height: 150,
       child: Stack(
         fit: StackFit.expand,
         children: [
           CircularProgressIndicator(
             value: _remainingTime.inSeconds / widget.initialDuration.inSeconds,
             strokeWidth: 9,
-            color: _remainingTime.inSeconds>5 ? Colors.white : const Color.fromARGB(255, 93, 17, 12),
+            backgroundColor: Colors.grey[700], // Added background color
+            color: _remainingTime.inSeconds> Duration(hours: 1).inSeconds ? Colors.white : const Color.fromARGB(255, 93, 17, 12), // Adjusted color threshold
           ),
           Center(
             child: Text(
-              '${_remainingTime.inSeconds} s',
+              formatDuration(_remainingTime),
               style:  TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w900,
-                color: _remainingTime.inSeconds>5 ? Colors.white : const Color.fromARGB(255, 93, 17, 12),
+                 color: _remainingTime.inSeconds > Duration(hours: 1).inSeconds ? Colors.white : const Color.fromARGB(255, 93, 17, 12), // Adjusted color threshold
               ),
             ),
           ),
