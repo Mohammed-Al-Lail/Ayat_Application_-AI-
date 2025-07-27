@@ -107,7 +107,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
 
     return Scaffold(
 
-      backgroundColor: Colors.blue[300],
+      backgroundColor: const Color.fromRGBO(24, 65, 99, 1),
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -264,7 +264,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> {
              
                 
                      
-                color: Colors.blue[200]
+                color: const Color.fromRGBO(72, 120, 159, 1)
                
               ),
                      
