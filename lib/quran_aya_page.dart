@@ -37,8 +37,12 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this); // Add observer
-    _loadAyas();
-    _loadTimerState();
+    _loadAyas().then((_) {
+      _loadTimerState();
+       if (_ayas.isNotEmpty) {
+        _updateAyaDisplay(); // Display initial aya after loading ayas
+      }
+    });
     
   }
   @override
@@ -100,7 +104,6 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
     final data = await json.decode(response);
     setState(() {
       _ayas = List<Map<String, dynamic>>.from(data['ayas']);
-      // Do not load initial aya here, it will be loaded in _loadTimerState
     });
   }
 
