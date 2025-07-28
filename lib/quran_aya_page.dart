@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/drawerListTail.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'aya_widget.dart';
 import 'timer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:just_audio/just_audio.dart';
 
 
 class QuranAyaPage extends StatefulWidget {
@@ -152,10 +150,16 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
     });
   }
   
-  void _playAya() async {
-   
+ void _playAya() async {
+    try {
       String url = _ayas[_ayaIndex]['audio_url'];
-      await _audioPlayer.play(AssetSource(url));
+      // Use just_audio to load and play the audio
+      await _audioPlayer.setAsset(url); // Use setAsset for local assets
+      _audioPlayer.play();
+      print('just_audio player state: ${_audioPlayer.playerState.playing}'); // Print player state
+    } catch (e) {
+      print('Error playing audio: $e'); // Print any errors
+    }
   }
   void _toggleMeaning() {
     setState(() {
