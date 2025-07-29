@@ -17,35 +17,31 @@ class TimerWidget extends StatefulWidget {
 
 class _TimerWidgetState extends State<TimerWidget> {
   late Duration _remainingTime;
-  Timer? _timer;
+  // Timer? _timer; // Removed the internal timer
 
   @override
   void initState() {
     super.initState();
     _remainingTime = widget.initialDuration;
-    _startCountdownTimer();
+    // _startCountdownTimer(); // No longer start an internal timer
+  }
+
+  @override
+  void didUpdateWidget(covariant TimerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update _remainingTime when initialDuration changes from the parent
+    if (widget.initialDuration != oldWidget.initialDuration) {
+      _remainingTime = widget.initialDuration;
+    }
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    // _timer?.cancel(); // No internal timer to cancel
     super.dispose();
   }
 
-  void _startCountdownTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        _remainingTime = _remainingTime - const Duration(seconds: 1);
-        if (_remainingTime.inSeconds < 1) {
-          timer.cancel();
-          widget.onTimerEnd();
-             _remainingTime = widget.initialDuration;
-          _startCountdownTimer();
-          
-        }
-      });
-    });
-  }
+  // Removed _startCountdownTimer
 
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -57,6 +53,9 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Use the initialDuration directly for display
+    _remainingTime = widget.initialDuration;
+
     return SizedBox(
       width: 150,
       height: 150,
@@ -64,10 +63,10 @@ class _TimerWidgetState extends State<TimerWidget> {
         fit: StackFit.expand,
         children: [
           CircularProgressIndicator(
-            value: _remainingTime.inSeconds / widget.initialDuration.inSeconds,
+            value: _remainingTime.inSeconds / const Duration(hours: 12).inSeconds, // Use the fixed initial duration for the progress indicator calculation
             strokeWidth: 9,
             backgroundColor: Colors.grey[700], // Added background color
-            color: _remainingTime.inSeconds> Duration(hours: 1).inSeconds ? Colors.white : const Color.fromARGB(255, 93, 17, 12), // Adjusted color threshold
+            color: _remainingTime.inSeconds > Duration(hours: 1).inSeconds ? Colors.white : const Color.fromARGB(255, 93, 17, 12), // Adjusted color threshold
           ),
           Center(
             child: Text(

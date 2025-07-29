@@ -21,7 +21,8 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
   String _ayaMeaning = "";
   bool _showMeaning = false;
   final AudioPlayer _audioPlayer = AudioPlayer();
-  Timer? _timer;
+  // Timer? _timer; // Removed the timer
+  Timer? _uiUpdateTimer; // Timer for UI updates when app is open
   List<Map<String, dynamic>> _ayas = [];
 
   int _ayaIndex = 0; // Initialize _ayaIndex
@@ -29,8 +30,6 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
   int _currentAyaNumber = 0;
   Duration _remainingTime = const Duration(hours: 12); // Initialize with the default duration
 
-
-    
     @override
   void initState() {
     super.initState();
@@ -46,25 +45,23 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this); // Remove observer
-    _saveTimerState();
-    _timer?.cancel();
+    // _saveTimerState(); // No need to save timer state on dispose with this approach
+    _uiUpdateTimer?.cancel(); // Cancel UI update timer
     _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      _saveTimerState(); // Save when the app goes to the background
-    } else if (state == AppLifecycleState.resumed) {
-      _loadTimerState(); // Load when the app comes to the foreground
+    if (state == AppLifecycleState.resumed) {
+      _loadTimerState(); // Load and update on resume
     }
   }
 
   Future<void> _saveTimerState() async {
     final prefs = await SharedPreferences.getInstance();
-    final timerEndTime = DateTime.now().add(_remainingTime);
-    await prefs.setInt('timerEndTime', timerEndTime.millisecondsSinceEpoch);
+    // No need to save remaining time, only the end time
+    // await prefs.setInt('timerEndTime', timerEndTime.millisecondsSinceEpoch);
     await prefs.setInt('currentAyaIndex', _ayaIndex); // Save the current aya index
   }
 
@@ -85,15 +82,50 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
         _remainingTime = remaining;
         _ayaIndex = savedAyaIndex; // Use the saved aya index
         _updateAyaDisplay(); // Update the displayed aya based on the loaded index
+        _startUiUpdateTimer(); // Start UI update timer
       }
     } else {
       // No saved state, start a new timer and load a new aya
       _remainingTime = const Duration(hours: 12); // Or your initial duration
-      _loadNewAya(); // Load a new aya
+      _loadNewAya(); // Load a new aya and start the timer
     }
-
-    _startTimer(); // Start the timer with the loaded or initial duration
   }
+
+  void _startTimer() async {
+    // This function now only sets the end time and saves it
+    final endTime = DateTime.now().add(_remainingTime);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('timerEndTime', endTime.millisecondsSinceEpoch);
+    _startUiUpdateTimer(); // Start the UI update timer
+  }
+
+ void _startUiUpdateTimer() async { // Made the function async
+  _uiUpdateTimer?.cancel(); // Cancel any existing UI update timer
+
+  final prefs = await SharedPreferences.getInstance(); // Get prefs once
+
+  _uiUpdateTimer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    // No need for await inside setState now
+    final savedEndTimeMillis = prefs.getInt('timerEndTime');
+    if (savedEndTimeMillis != null) {
+      final savedEndTime = DateTime.fromMillisecondsSinceEpoch(savedEndTimeMillis);
+      setState(() {
+        _remainingTime = savedEndTime.difference(DateTime.now());
+        if (_remainingTime.inSeconds < 1) {
+          _remainingTime = Duration.zero;
+          timer.cancel();
+          _loadNewAya(); // Load new aya when timer ends
+        }
+      });
+    } else {
+      setState(() {
+        _remainingTime = const Duration(hours: 12); // Reset to default if no end time is saved
+        timer.cancel();
+      });
+    }
+  });
+}
+
 
 
 
@@ -106,6 +138,7 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
   }
 
   void _loadNewAya() async {
+    _uiUpdateTimer?.cancel(); // Cancel UI update timer before loading new aya
     if (_ayas.isEmpty) return; // Ensure ayas are loaded
 
     // Logic to select the next aya (example: move to the next aya sequentially)
@@ -114,8 +147,8 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
     setState(() {
       _updateAyaDisplay(); // Update the UI with the new aya
       _remainingTime = const Duration(hours: 12); // Reset timer for the new aya
-      _saveTimerState(); // Save the new aya index and timer state
-      _startTimer(); // Start timer for the new aya
+      _saveTimerState(); // Save the new aya index
+      _startTimer(); // Start the timer (sets end time and starts UI update timer)
     });
   }
 
@@ -135,31 +168,16 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
     Duration _calculateRemainingTime() {
         return _remainingTime;
   }
-  void _startTimer() {
-    _timer?.cancel(); // Cancel existing timer
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        if (_remainingTime.inSeconds > 0) {
-          _remainingTime = _remainingTime - const Duration(seconds: 1);
-        } else {
-          timer.cancel();
-          _loadNewAya(); // Load new aya when timer ends
-        }
-      });
-    });
-  }
   
  void _playAya() async {
-    try {
+    
       String url = _ayas[_ayaIndex]['audio_url'];
       // Use just_audio to load and play the audio
       await _audioPlayer.setAsset(url); // Use setAsset for local assets
       _audioPlayer.play();
-      print('just_audio player state: ${_audioPlayer.playerState.playing}'); // Print player state
-    } catch (e) {
-      print('Error playing audio: $e'); // Print any errors
-    }
+     
+  
   }
   void _toggleMeaning() {
     setState(() {
