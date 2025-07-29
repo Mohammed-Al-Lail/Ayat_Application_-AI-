@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/drawerListTail.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart'; // Removed url_launcher
+import 'package:flutter_email_sender/flutter_email_sender.dart'; // Imported flutter_email_sender
 import 'aya_widget.dart';
 import 'timer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -187,16 +188,36 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
 
 
   void _sendEmail() async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto:',
-      path: 'alalmoh3404@gmail.com', // Replace with the recipient's email
-      //query: 'subject=Hello&body=How are you?', // Optional: Subject and body
+    final Email email = Email(
+      body: '', // Optional: Email body
+      subject: '', // Optional: Email subject
+      recipients: ['alalmoh3404@gmail.com'], // Replace with recipient's email
+      isHTML: false,
     );
 
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
-    } else {
-      throw 'Could not launch $emailUri';
+    try {
+      await FlutterEmailSender.send(email);
+    } catch (error) {
+      // Handle error, e.g., no email client available
+      print('Error sending email: $error');
+      // You might want to show a dialog to the user
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Could not launch email app. Please configure an email account on your device.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
