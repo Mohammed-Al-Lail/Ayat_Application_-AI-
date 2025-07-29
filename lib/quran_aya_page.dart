@@ -37,11 +37,9 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
     WidgetsBinding.instance.addObserver(this); // Add observer
     _loadAyas().then((_) {
       _loadTimerState();
-       if (_ayas.isNotEmpty) {
-        _updateAyaDisplay(); // Display initial aya after loading ayas
-      }
+       // Removed the call to _updateAyaDisplay() here
     });
-    
+
   }
   @override
   void dispose() {
@@ -86,9 +84,11 @@ class _QuranAyaPageState extends State<QuranAyaPage> with WidgetsBindingObserver
         _startUiUpdateTimer(); // Start UI update timer
       }
     } else {
-      // No saved state, start a new timer and load a new aya
+      // No saved state, start with the first aya and a new timer
+      _ayaIndex = 0; // Start with the first aya
       _remainingTime = const Duration(hours: 12); // Or your initial duration
-      _loadNewAya(); // Load a new aya and start the timer
+      _updateAyaDisplay(); // Display the first aya
+      _startTimer(); // Start the timer (sets end time and starts UI update timer)
     }
   }
 
